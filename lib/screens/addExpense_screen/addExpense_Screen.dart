@@ -31,71 +31,163 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
               color: Colors.white,
               onPressed: () => Get.back(),),),
 
-        body: Column(
-          children: [
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: 5.h),
 
-            Text("How much?",style: TextStyle(fontSize: 16.sp,color: Colors.white70,fontWeight: FontWeight.w400),),
-            TextField(
-              controller: tamount,
-              keyboardType: TextInputType.number,
-              showCursor: false,
-              style: TextStyle(fontSize: 40.sp,color: Colors.white,fontWeight: FontWeight.w600),
-              decoration: InputDecoration(
-                 prefixIcon: Padding(padding: EdgeInsets.all(0), child: Text('\$',style: TextStyle(fontSize: 40.sp,color: Colors.white,fontWeight: FontWeight.w600),)),
-                hintText: "0",
-                hintStyle: TextStyle(fontSize: 40.sp,color: Colors.white,fontWeight: FontWeight.w600),
+              Container(
+                  padding: EdgeInsets.symmetric(horizontal: 5.w),
+                  child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("How much?",style: TextStyle(fontSize: 16.sp,color: Colors.white70,fontWeight: FontWeight.w400),),
+                      TextField(
+                        controller: tamount,
+                        keyboardType: TextInputType.number,
+                        showCursor: false,
+                        style: TextStyle(fontSize: 40.sp,color: Colors.white,fontWeight: FontWeight.w600),
+                        decoration: InputDecoration(
+                            prefixIcon: Padding(padding: EdgeInsets.all(0), child: Text('\$',style: TextStyle(fontSize: 40.sp,color: Colors.white,fontWeight: FontWeight.w600),)),
+                            hintText: "0",
+                            hintStyle: TextStyle(fontSize: 40.sp,color: Colors.white,fontWeight: FontWeight.w600),
 
-                border: InputBorder.none
-              ),
-            ),
-
-            Container(height: 60.h,width: 100.w,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(5.w),
-                    topRight: Radius.circular(5.w),
-                ),
-                  color: Colors.white
-
-                ),
-
-                child: Column(
-                  children: [
-                    DropdownButton(
-
-                      value: control.selCategoryType.value,
-                      items: control.categoryList.map((e) =>
-                        DropdownMenuItem(
-                          value: e,
-                            child: Text("$e"),
-                            alignment: Alignment.centerLeft)
-                        ).toList(),
-                      onChanged: (value) {
-                      control.selCategoryType.value = value as String;
-                     },
-                    ),
-
-
-                    TextField(
-                      controller: tdesc,
-                      keyboardType: TextInputType.text,
-                     // showCursor: false,
-                      style: TextStyle(fontSize: 15.sp,color: Colors.black54,fontWeight: FontWeight.w400),
-                      decoration: InputDecoration(
-                          hintText: "Description",
-                          hintStyle: TextStyle(fontSize: 14.sp,color: Colors.black38,fontWeight: FontWeight.w300),
-
-                          border: InputBorder.none
+                            border: InputBorder.none
+                        ),
                       ),
-                    ),
+                    ],
+                  )),
+
+              Container(height: 70.h,width: 100.w,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(10.w),
+                      topRight: Radius.circular(10.w),
+                  ),
+                    color: Colors.white
+
+                  ),
+
+                  padding: EdgeInsets.symmetric(horizontal: 5.w),
+
+                  child: Column(
+                    children: [
+                      SizedBox(height: 5.h),
+
+                      Obx(
+                        ()=> Container(height: 8.h,width: 100.w,alignment: Alignment.center,
+                          padding: EdgeInsets.symmetric(horizontal: 5.w),
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.w),
+                          border: Border.all(color: Colors.black12)),
+
+                          child: DropdownButton(
+                            borderRadius: BorderRadius.circular(5.w),
+
+                            // dropdownColor: Colors.amber,
+                            isExpanded: true,
+                            icon: Icon(Icons.expand_more_rounded),
+                            underline: Container(),
+
+                            value: control.selCategoryType.value,
+                            items: control.categoryList.map((e) =>
+                              DropdownMenuItem(
+                                value: e,
+                                  child: Text("$e"),
+                                  alignment: Alignment.centerLeft)
+                              ).toList(),
+                            onChanged: (value) {
+                            control.selCategoryType.value = value as String;
+                           },
+                          ),
+                        ),
+                      ),
+
+                      SizedBox(height: 2.h),
 
 
-                  ]
-                ),
-              )
+
+                      TextField(
+                        controller: tdesc,
+                        keyboardType: TextInputType.text,
+                        style: TextStyle(fontSize: 15.sp,color: Colors.black54,fontWeight: FontWeight.w400),
+                        decoration: InputDecoration(
+                            hintText: "Description",
+                            hintStyle: TextStyle(fontSize: 16.sp,color: Colors.black38,fontWeight: FontWeight.w200),
+
+                          enabled: true,
+                          enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(5.w),borderSide: BorderSide(color: Colors.black12)),
+                          focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(5.w),borderSide: BorderSide(color: Colors.black12)),
+
+                        ),
+                      ),
+
+                      SizedBox(height: 2.h),
+
+                      Container(height: 8.h,width: 100.w,alignment: Alignment.center,
+                        padding: EdgeInsets.symmetric(horizontal: 5.w),
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.w),
+                            border: Border.all(color: Colors.black12)),
+                        child: Row(mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                          Icon(Icons.attach_file_rounded,size: 20,),
+                          SizedBox(width: 2.w),
+                          Text("Add attachment",style: TextStyle(fontWeight: FontWeight.w200,fontSize: 15.sp),)
+                        ],),
+                      ),
+
+                      SizedBox(height: 2.h),
 
 
-          ],
+                      Obx(
+                            ()=> Container(height: 8.h,width: 100.w,alignment: Alignment.center,
+                          padding: EdgeInsets.symmetric(horizontal: 5.w),
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.w),
+                              border: Border.all(color: Colors.black12)),
+
+                          child: DropdownButton(
+                            borderRadius: BorderRadius.circular(5.w),
+
+                            // dropdownColor: Colors.amber,
+                            isExpanded: true,
+                            icon: Icon(Icons.expand_more_rounded),
+                            underline: Container(),
+
+                            value: control.selWalletType.value,
+                            items: control.walletList.map((e) =>
+                                DropdownMenuItem(
+                                    value: e,
+                                    child: Text("$e"),
+                                    alignment: Alignment.centerLeft)
+                            ).toList(),
+                            onChanged: (value) {
+                              control.selWalletType.value = value as String;
+                            },
+                          ),
+                        ),
+                      ),
+
+                      SizedBox(height: 2.h),
+
+                      Container(height: 8.h,width: 100.w,alignment: Alignment.center,
+                        padding: EdgeInsets.symmetric(horizontal: 5.w),
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.w),
+                            color: Colors.indigo,
+                            border: Border.all(color: Colors.black12)),
+                        child: Text("Continue",style: TextStyle(fontWeight: FontWeight.w400,fontSize: 16.sp,color: Colors.white),),
+                      ),
+
+                      SizedBox(height: 2.h),
+
+
+
+
+                    ]
+                  ),
+                )
+
+
+            ],
+          ),
         ),
 
       ),

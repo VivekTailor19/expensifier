@@ -4,6 +4,10 @@ import 'package:get/get.dart';
 class ExpensifierController extends GetxController
 {
 
+  RxInt indexBottomBar = 0.obs;
+
+
+
   Future<void> load_ExpensifierDB()
   async {
      Expensifier_DB_Helper.expense_db.readFromDB();
