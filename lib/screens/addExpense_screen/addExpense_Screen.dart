@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:expensifier/controller/expensifier_Controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,15 +19,33 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
 
   ExpensifierController control = Get.put(ExpensifierController());
 
+  Map mapData = {};
+
+  @override
+  void initState() {
+    super.initState();
+    mapData = Get.arguments;
+
+    if(mapData['status'] == 'income')
+      {
+        control.expenseScreenBgColor.value = Color(0xff00A86B);
+      }
+    else if(mapData['status'] == 'expense')
+    {
+      control.expenseScreenBgColor.value = Colors.red;
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.redAccent,
+        backgroundColor: control.expenseScreenBgColor.value,
 
         appBar: AppBar(
-          elevation: 0,backgroundColor: Colors.redAccent,
+
+          elevation: 0,backgroundColor: control.expenseScreenBgColor.value,
           leading: IconButton(icon:Icon(Icons.arrow_back_outlined),
               iconSize: 16.sp,
               color: Colors.white,
@@ -34,8 +54,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 5.h),
-
+              SizedBox(height: 10.h,),
               Container(
                   padding: EdgeInsets.symmetric(horizontal: 5.w),
                   child: Column(crossAxisAlignment: CrossAxisAlignment.start,
@@ -129,7 +148,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                         child: Row(mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                          Icon(Icons.attach_file_rounded,size: 20,),
+                          Transform.rotate(angle: pi/4,child: Icon(Icons.attach_file_rounded,size: 20,)),
                           SizedBox(width: 2.w),
                           Text("Add attachment",style: TextStyle(fontWeight: FontWeight.w200,fontSize: 15.sp),)
                         ],),
@@ -171,9 +190,9 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                       Container(height: 8.h,width: 100.w,alignment: Alignment.center,
                         padding: EdgeInsets.symmetric(horizontal: 5.w),
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.w),
-                            color: Colors.indigo,
+                            color: Color(0xff7F3DFF),
                             border: Border.all(color: Colors.black12)),
-                        child: Text("Continue",style: TextStyle(fontWeight: FontWeight.w400,fontSize: 16.sp,color: Colors.white),),
+                        child: Text("Continue",style: TextStyle(fontWeight: FontWeight.w400,fontSize: 18.sp,color: Colors.white),),
                       ),
 
                       SizedBox(height: 2.h),

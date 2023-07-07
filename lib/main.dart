@@ -12,7 +12,7 @@ void main() {
     Sizer(
       builder:(context, orientation, deviceType) =>  GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: "/expense",
+        // initialRoute: "/expense",
         routes: {
           "/":(p0) => FirstScreen(),
           "/expense":(p0) => AddExpenseScreen(),

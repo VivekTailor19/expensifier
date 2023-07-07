@@ -1,4 +1,5 @@
 import 'package:expensifier/utils/expensifier_database_sqflite_helper.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ExpensifierController extends GetxController
@@ -6,6 +7,7 @@ class ExpensifierController extends GetxController
 
   RxInt indexBottomBar = 0.obs;
 
+  Rx<Color> expenseScreenBgColor = Color(0xff0077FF).obs;
 
 
   Future<void> load_ExpensifierDB()

@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:expensifier/controller/expensifier_Controller.dart';
 import 'package:floating_bottom_bar/animated_bottom_navigation_bar.dart';
@@ -60,9 +59,8 @@ class _FirstScreenState extends State<FirstScreen> {
           floatingActionButton: const SizedBox(
             height: 55,
             width: 55,
-          ),
-          floatingActionButtonLocation:
-          FloatingActionButtonLocation.centerDocked,
+            ),
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
 
           bottomNavigationBar: AnimatedBottomNavigationBar(
 
@@ -79,7 +77,7 @@ class _FirstScreenState extends State<FirstScreen> {
 
             bottomBarCenterModel: BottomBarCenterModel(
 
-              centerBackgroundColor: Colors.indigo,
+              centerBackgroundColor: Color(0xff7F3DFF),
               centerIcon: const FloatingCenterButton(
                 child: Icon(
                   Icons.close,
@@ -90,15 +88,27 @@ class _FirstScreenState extends State<FirstScreen> {
               centerIconChild: [
 
                 FloatingCenterButtonChild(
-                  child: CircleAvatar(radius: 20,backgroundImage: AssetImage("assets/first/currency.png"),backgroundColor: Color(0xff0077FF),),
-                  onTap: () => Get.toNamed("/expense"),
-                ),FloatingCenterButtonChild(
-                  child: CircleAvatar(radius: 20,backgroundImage: AssetImage("assets/first/income.png"),backgroundColor: Color(0xff00A86B)),
-                  onTap: () => Get.toNamed("/expense"),
-                ),FloatingCenterButtonChild(
-                  child: CircleAvatar(radius: 20,backgroundImage: AssetImage("assets/first/expense.png"),backgroundColor: Colors.red),
+                  child: Container(height: 25,width: 25,alignment: Alignment.center,
+              decoration: BoxDecoration(shape: BoxShape.circle,color: Color(0xff0077FF),
+                  image: DecorationImage(image: AssetImage("assets/first/Transaction.png"),fit: BoxFit.contain)
+              ),),
                   onTap: () => Get.toNamed("/expense"),
                 ),
+                FloatingCenterButtonChild(
+                  child: Container(height: 25,width: 25,alignment: Alignment.center,
+                    decoration: BoxDecoration(shape: BoxShape.circle,color: Color(0xff00A86B),
+                        image: DecorationImage(image: AssetImage("assets/first/Income.png"),fit: BoxFit.contain)
+                    ),),
+                  onTap: () => Get.toNamed("/expense",arguments: {"status":"income"}),
+                ),
+                FloatingCenterButtonChild(
+                  child: Container(height: 25,width: 25,alignment: Alignment.center,
+                    decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.red,
+                        image: DecorationImage(image: AssetImage("assets/first/Expense.png"),fit: BoxFit.contain)
+                    ),),
+                  onTap: () => Get.toNamed("/expense",arguments: {"status":"expense"}),
+                ),
+
 
               ],
             ),
@@ -112,9 +122,9 @@ class _FirstScreenState extends State<FirstScreen> {
 
   BottomBarItem CustombuildBottomBarItem(String titledata,IconData icondata) {
     return BottomBarItem(
-            icon:  Icon(icondata, size: 30,color: Colors.black26),
+            icon:  Icon(icondata, size: 30,color: Color(0xffC6C6C6)),
             iconSelected: Icon(icondata,
-                color: Colors.indigo,
+                color: Color(0xff7F3DFF),
                 size: 30),
 
             title: titledata,
