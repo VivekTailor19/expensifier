@@ -1,3 +1,7 @@
+import 'dart:io';
+import 'package:expensifier/model/expense_model.dart';
+import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 class Expensifier_DB_Helper
@@ -6,33 +10,76 @@ class Expensifier_DB_Helper
 
   Database? database ;
 
-  void checkDB()
-  {
+  final  dbPath = "dbase.db";
+  final  dbTableName = "datatable";
+
+  Future<Database?> checkDB()
+  async {
+    if(database != null)
+      {
+        return database;
+      }
+    else
+      {
+        return await buildDB();
+      }
+  }
+
+  Future<Database> buildDB()
+  async {
+    Directory dir = await getApplicationDocumentsDirectory();
+    final path = join(dir.path, dbPath);
+    String query = 'CREATE TABLE $dbTableName (id INTEGER PRIMARY KEY AUTOINCREMENT, amount TEXT, status TEXT, category TEXT, paymentType TEXT, description TEXT ,img BLOB)';
+
+    return await openDatabase(
+      path, version: 1,
+      onCreate: (db, version) async {return await db.execute(query);
+    },);
 
   }
 
-  void buildDB()
-  {
+  Future<void> insertInDB(ExpenseModel expenseModel)
+  async {
+    database = await checkDB();
+
+    await database!.insert(dbTableName, {
+      'amount':expenseModel.amount,
+      'status':expenseModel.status,
+      'category':expenseModel.category,
+      'description':expenseModel.description,
+      'paymentType':expenseModel.paymentType
+      //'img':expenseModel.img
+    }
+
+    );
 
   }
 
-  void insertInDB()
-  {
-
+  Future<List<Map>> readFromDB()
+  async {
+    database = await checkDB();
+    String query = 'SELECT * FROM $dbTableName';
+    List<Map> list = await database!.rawQuery(query);
+    // print(list);
+    return list;
   }
 
-  void readFromDB()
-  {
-
+  Future<void> deleteInDB(int selId)
+  async {
+    database = await checkDB();
+    database!.delete(dbTableName,where: "id=?" ,whereArgs:[selId] );
   }
 
-  void deleteInDB()
-  {
-
-  }
-
-  void updateInDB()
-  {
+  Future<void> updateInDB(ExpenseModel expenseModel)
+  async {
+    database = await checkDB();
+    database!.update(dbTableName, {
+      'amount':expenseModel.amount,
+      'status':expenseModel.status,
+      'category':expenseModel.category,
+      'description':expenseModel.description,
+      'paymentType':expenseModel.paymentType
+    }, where: "id=?",whereArgs: [expenseModel.id]);
 
   }
 

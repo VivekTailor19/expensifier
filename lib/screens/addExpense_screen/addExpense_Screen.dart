@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:expensifier/controller/expensifier_Controller.dart';
+import 'package:expensifier/model/expense_model.dart';
+import 'package:expensifier/utils/expensifier_database_sqflite_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
@@ -187,12 +189,31 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
 
                       SizedBox(height: 2.h),
 
-                      Container(height: 8.h,width: 100.w,alignment: Alignment.center,
-                        padding: EdgeInsets.symmetric(horizontal: 5.w),
-                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.w),
-                            color: Color(0xff7F3DFF),
-                            border: Border.all(color: Colors.black12)),
-                        child: Text("Continue",style: TextStyle(fontWeight: FontWeight.w400,fontSize: 18.sp,color: Colors.white),),
+                      GestureDetector(
+                        onTap: () async {
+                          Expensifier_DB_Helper expense_db_helper = Expensifier_DB_Helper();
+
+                          ExpenseModel model = ExpenseModel(
+                             amount: int.parse(tamount.text),
+                            status: mapData['status'],
+                            category: control.selCategoryType.value,
+                            description: tdesc.text,
+                            paymentType: control.selWalletType.value
+                          );
+
+                          await expense_db_helper.insertInDB(model);
+
+                          await control.load_ExpensifierDB();
+
+                          Get.back();
+                        },
+                        child: Container(height: 8.h,width: 100.w,alignment: Alignment.center,
+                          padding: EdgeInsets.symmetric(horizontal: 5.w),
+                          decoration: BoxDecoration(borderRadius: BorderRadius.circular(5.w),
+                              color: Color(0xff7F3DFF),
+                              border: Border.all(color: Colors.black12)),
+                          child: Text("Continue",style: TextStyle(fontWeight: FontWeight.w400,fontSize: 18.sp,color: Colors.white),),
+                        ),
                       ),
 
                       SizedBox(height: 2.h),
