@@ -87,7 +87,6 @@ class _TransactionScreenState extends State<TransactionScreen> {
 
                      },
                      onLongPress: () {
-
                      },
                      child: ItemListTile(
                        amount: control.itemList[index]['amount'],
