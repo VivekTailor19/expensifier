@@ -1,3 +1,4 @@
+import 'package:expensifier/model/intro_model.dart';
 import 'package:expensifier/screens/01_home_screen/view/homeScreen.dart';
 import 'package:expensifier/screens/02_transaction_screen/view/transaction_screen.dart';
 import 'package:expensifier/screens/03_budget_screen/view/budget_screen.dart';
@@ -8,6 +9,12 @@ import 'package:get/get.dart';
 
 class ExpensifierController extends GetxController
 {
+
+  List<IntroModel> introList = [
+    IntroModel(introImg: "assets/images/intro/control.png",introTitle: "Gain total control of your money",introData: "Become your own money manager and make every cent count" ),
+    IntroModel(introImg: "assets/images/intro/bill.png",introTitle: "Know where yourmoney goes",introData: "Track your transaction easily,with categories and financial report " ),
+    IntroModel(introImg: "assets/images/intro/plan.png",introTitle: "Planning ahead",introData: "Setup your budget for each category so you in control" ),
+  ];
 
   RxInt indexBottomBar = 0.obs;
   List<Widget> screenList = [
