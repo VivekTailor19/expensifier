@@ -16,11 +16,11 @@ class _TransactionScreenState extends State<TransactionScreen> {
 
   ExpensifierController control = Get.put(ExpensifierController());
 
-  @override
-  void initState() {
-    super.initState();
-    control.load_ExpensifierDB();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   control.load_ExpensifierDB();
+  // }
   
   @override
   Widget build(BuildContext context) {
@@ -130,37 +130,39 @@ class _TransactionScreenState extends State<TransactionScreen> {
                      ),),
 
 
-               ListView.builder(
-                 itemCount: control.itemList.length,
-                 reverse: true,
-                 shrinkWrap:true,
-                 physics: NeverScrollableScrollPhysics(),
-                 itemBuilder: (context, index) {
-                   control.selCategoryTab(control.itemList[index]['category']);
+               Obx(
+                 () =>  ListView.builder(
+                   itemCount: control.itemList.length,
+                   reverse: true,
+                   shrinkWrap:true,
+                   physics: NeverScrollableScrollPhysics(),
+                   itemBuilder: (context, index) {
+                     control.selCategoryTab(control.itemList[index]['category']);
 
-                   return GestureDetector(
+                     return GestureDetector(
 
-                     onDoubleTap: ()  async {
-                       Expensifier_DB_Helper expense_db_helper = Expensifier_DB_Helper();
-                       int delId = control.itemList[index]['id'];
+                       onDoubleTap: ()  async {
+                         Expensifier_DB_Helper expense_db_helper = Expensifier_DB_Helper();
+                         int delId = control.itemList[index]['id'];
 
-                       print(delId);
-                       await  expense_db_helper.deleteInDB(delId);
-                       control.load_ExpensifierDB();
+                         print(delId);
+                         expense_db_helper.deleteInDB(delId);
+                         await control.load_ExpensifierDB();
 
-                     },
-                     onLongPress: () {
-                     },
-                     child: ItemListTile(
-                       amount: control.itemList[index]['amount'],
-                       status: control.itemList[index]['status'],
-                       category: control.itemList[index]['category'],
-                       desc: control.itemList[index]['description'],
-                       categoryImg: control.selCategoryImgPath.value,
-                       categoryColor: control.selCategoryBg.value
-                     ),
-                   );
-                 },),
+                       },
+                       onLongPress: () {
+                       },
+                       child: ItemListTile(
+                         amount: control.itemList[index]['amount'],
+                         status: control.itemList[index]['status'],
+                         category: control.itemList[index]['category'],
+                         desc: control.itemList[index]['description'],
+                         categoryImg: control.selCategoryImgPath.value,
+                         categoryColor: control.selCategoryBg.value
+                       ),
+                     );
+                   },),
+               ),
              ],
            ),
          ),

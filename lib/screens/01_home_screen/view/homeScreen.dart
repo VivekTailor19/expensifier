@@ -15,12 +15,6 @@ class _HomeScreenState extends State<HomeScreen> {
   ExpensifierController control = Get.put(ExpensifierController());
 
   @override
-  void initState() {
-    super.initState();
-    control.load_ExpensifierDB();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
 
@@ -70,24 +64,24 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Text("Recent Transaction",style: TextStyle(fontWeight: FontWeight.w400,fontSize: 15.sp,),),
               ),
 
-              ListView.builder(
-                itemCount: 1,
-                reverse: true,
-                shrinkWrap:true,
-                physics: NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  control.selCategoryTab(control.itemList[index]['category']);
-                  return ItemListTile(
-                      amount: control.itemList[index]['amount'],
-                      status: control.itemList[index]['status'],
-                      category: control.itemList[index]['category'],
-                      desc: control.itemList[index]['description'],
-                      categoryImg: control.selCategoryImgPath.value,
-                      categoryColor: control.selCategoryBg.value
-                  );
-                },),
-
-
+              Obx(
+                () =>  control.itemList.isEmpty?Container():ListView.builder(
+                    itemCount: 1,
+                    reverse: true,
+                    shrinkWrap:true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      control.selCategoryTab(control.itemList[index]['category']);
+                      return ItemListTile(
+                          amount: control.itemList[index]['amount'],
+                          status: control.itemList[index]['status'],
+                          category: control.itemList[index]['category'],
+                          desc: control.itemList[index]['description'],
+                          categoryImg: control.selCategoryImgPath.value,
+                          categoryColor: control.selCategoryBg.value
+                      );
+                    },),
+              ),
 
             ],
           ),

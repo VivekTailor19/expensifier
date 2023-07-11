@@ -15,8 +15,11 @@ class _FirstScreenState extends State<FirstScreen> {
 
  ExpensifierController control = Get.put(ExpensifierController());
 
-
-
+ @override
+ void initState() {
+   super.initState();
+   control.load_ExpensifierDB();
+ }
 
   @override
   Widget build(BuildContext context) {

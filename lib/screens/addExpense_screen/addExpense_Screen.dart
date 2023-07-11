@@ -64,8 +64,11 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Spacer(),
-            // SizedBox(height: 10.h,),
+
+            mapData['status'] != 'transfer'
+                ? SizedBox(height: 5.h,)
+                :SizedBox(height: 26.9.h,),
+
             Container(
                 padding: EdgeInsets.symmetric(horizontal: 5.w),
                 child: Column(
@@ -473,6 +476,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                   GestureDetector(
                     onTap: () async {
 
+                      await control.load_ExpensifierDB();
                       Get.back();
                     },
                     child: Container(
