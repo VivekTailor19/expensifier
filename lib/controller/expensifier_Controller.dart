@@ -27,6 +27,7 @@ class ExpensifierController extends GetxController
   Rx<Color> expenseScreenBgColor = Color(0xff0077FF).obs;
 
   RxList itemList = [].obs;
+
   Future<void> load_ExpensifierDB()
   async {
     itemList.value = await Expensifier_DB_Helper.expense_db.readFromDB();
@@ -68,5 +69,75 @@ class ExpensifierController extends GetxController
 
   RxString selWalletType = 'PayTM'.obs;
   List<String> walletList = ['PayTM','PayPal','PhonePay','GooglePay','BHIM',];
+
+
+
+
+  // FilterDatas
+
+
+
+  // Filter expense
+
+  RxList filterList = [].obs;
+
+  Future<void> load_FilteredDB(String cate)
+  async {
+    itemList.value = await Expensifier_DB_Helper.expense_db.readFilteredDB(cate);
+  }
+
+  // void loadFilterList()
+  // {
+  //   if(filterList.isEmpty)
+  //     {
+  //       filterList.value = itemList.value;
+  //     }
+  //   else
+  //     {
+  //
+  //     }
+  // }
+  RxString selFilterCategory= "".obs;
+
+  Rx<Color> selIncomeTextColor = Color(0xff000000).obs;
+  Rx<Color> selIncomeBoxColor = Color(0xff53A9FC).obs;
+  Rx<Color> selExpenseTextColor = Color(0xff000000).obs;
+  Rx<Color> selExpenseBoxColor = Color(0xff53A9FC).obs;
+  Rx<Color> selTransferTextColor = Color(0xff000000).obs;
+  Rx<Color> selTransferBoxColor = Color(0xff53A9FC).obs;
+
+  void selectFilterByExpense(String expense)
+  {
+    selFilterCategory.value = expense;
+    if(expense == 'Income')
+      {
+        selIncomeTextColor.value = Color(0xffFDD5D7);
+        selIncomeBoxColor.value = Color(0xffC107FF);
+        selExpenseTextColor.value = Color(0xff000000);
+        selExpenseBoxColor.value = Color(0xff53A9FC);
+        selTransferTextColor.value = Color(0xff000000);
+        selTransferBoxColor.value = Color(0xff53A9FC);
+      }
+    else if(expense == 'Expense')
+    {
+      selIncomeTextColor.value = Color(0xff000000);
+      selIncomeBoxColor.value = Color(0xff53A9FC);
+      selExpenseTextColor.value = Color(0xffFDD5D7);
+      selExpenseBoxColor.value = Color(0xffC107FF);
+      selTransferTextColor.value = Color(0xff000000);
+      selTransferBoxColor.value = Color(0xff53A9FC);
+    }
+    else
+      {
+        selIncomeTextColor.value = Color(0xff000000);
+        selIncomeBoxColor.value = Color(0xff53A9FC);
+        selExpenseTextColor.value = Color(0xff000000);
+        selExpenseBoxColor.value = Color(0xff53A9FC);
+        selTransferTextColor.value = Color(0xffFDD5D7);
+        selTransferBoxColor.value = Color(0xffC107FF);
+      }
+    print("${selFilterCategory.value}");
+
+  }
 
 }

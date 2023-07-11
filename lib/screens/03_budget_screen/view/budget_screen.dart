@@ -11,10 +11,8 @@ class BudgetScreen extends StatefulWidget {
 class _BudgetScreenState extends State<BudgetScreen> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(title: Text("BudgetScreen"),),
-      ),
+    return Scaffold(
+      appBar: AppBar(title: Text("BudgetScreen"),),
     );
   }
 }

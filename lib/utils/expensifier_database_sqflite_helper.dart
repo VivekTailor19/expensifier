@@ -64,6 +64,15 @@ class Expensifier_DB_Helper
     return list;
   }
 
+  Future<List<Map>> readFilteredDB(String cate)
+  async {
+    database = await checkDB();
+    String query = 'SELECT * FROM $dbTableName WHERE category = "$cate"';
+    List<Map> list = await database!.rawQuery(query);
+    // print(list);
+    return list;
+  }
+
   Future<void> deleteInDB(int selId)
   async {
     database = await checkDB();

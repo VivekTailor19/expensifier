@@ -21,7 +21,7 @@ void main() {
       builder:(context, orientation, deviceType) =>  GetMaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(fontFamily: 'OpenSans'),
-         initialRoute: "/first",
+         initialRoute: "/transaction",
         routes: {
           "/":(p0) => SplashScreen(),
           "/first":(p0) => FirstScreen(),
