@@ -94,7 +94,23 @@ class _UpdateExpense_DATAState extends State<UpdateExpense_DATA> {
                   DetailTile(title: "Category",titledata: "Shopping"),
                   DetailTile(title: "Wallet",titledata: "Wallet"),
                 ],),
+                ),
+
+                Divider(color: Colors.black12,thickness: 1.5,),
+
+                Row(mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text("Description",style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w400,color: Colors.black45),),
+                  ],
+                ),
+
+                Row(mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text("Attachment",style: TextStyle(fontSize: 16.sp,fontWeight: FontWeight.w400,color: Colors.black45),),
+                  ],
                 )
+
+
 
               ],),
             )
