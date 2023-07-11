@@ -6,6 +6,7 @@ import 'package:expensifier/screens/04_profile_screen/view/profile_screen.dart';
 import 'package:expensifier/screens/addExpense_screen/addExpense_Screen.dart';
 import 'package:expensifier/screens/firstScreen.dart';
 import 'package:expensifier/screens/intro_screens/splash_screen.dart';
+import 'package:expensifier/screens/updateExpense_screen/updateExpense_Screen.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:flutter/material.dart';
@@ -21,11 +22,13 @@ void main() {
       builder:(context, orientation, deviceType) =>  GetMaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(fontFamily: 'OpenSans'),
-      //   initialRoute: "/transaction",
+         //initialRoute: "/update",
         routes: {
-          "/":(p0) => SplashScreen(),
+          "/":(p0) => UpdateExpense_DATA(),
+          // "/":(p0) => SplashScreen(),
           "/first":(p0) => FirstScreen(),
           "/expense":(p0) => AddExpenseScreen(),
+          "/update":(p0) => UpdateExpense_DATA(),
           "/home":(p0) => HomeScreen(),
           "/transaction":(p0) => TransactionScreen(),
           "/budget":(p0) => BudgetScreen(),

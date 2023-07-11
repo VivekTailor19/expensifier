@@ -26,6 +26,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+
        body: SingleChildScrollView(
          child: Padding(
            padding:  EdgeInsets.symmetric(horizontal: 3.w),
@@ -146,12 +147,15 @@ class _TransactionScreenState extends State<TransactionScreen> {
                          int delId = control.itemList[index]['id'];
 
                          print(delId);
-                         expense_db_helper.deleteInDB(delId);
+                         await expense_db_helper.deleteInDB(delId);
                          await control.load_ExpensifierDB();
 
                        },
-                       onLongPress: () {
+
+                       onTap: () {
+
                        },
+
                        child: ItemListTile(
                          amount: control.itemList[index]['amount'],
                          status: control.itemList[index]['status'],

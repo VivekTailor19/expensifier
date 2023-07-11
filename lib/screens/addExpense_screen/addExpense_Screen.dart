@@ -34,14 +34,19 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
     if (mapData['status'] == 'income')
     {
       control.expenseScreenBgColor.value = Color(0xff00A86B);
+      control.titleAddScreen.value = "Income";
     }
+
     else if (mapData['status'] == 'expense')
     {
       control.expenseScreenBgColor.value = Color(0xffFD3C4A);
+      control.titleAddScreen.value = "Expense";
     }
+
     else if(mapData['status'] == 'transfer')
       {
         control.expenseScreenBgColor.value = Color(0xff0077FF);
+        control.titleAddScreen.value = "Transfer";
       }
   }
 
@@ -59,6 +64,8 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
             color: Colors.white,
             onPressed: () => Get.back(),
           ),
+
+          title: Text("${control.titleAddScreen.value}",style: TextStyle(color: Colors.white,fontSize: 18.sp),)
         ),
 
         body: Column(
