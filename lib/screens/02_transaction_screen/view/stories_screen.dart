@@ -11,8 +11,8 @@ class _StoriesScreenState extends State<StoriesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ,
+      body: Center(child: Text("Stories")),
     );
   }
 
-
+}

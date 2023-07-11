@@ -24,7 +24,13 @@ class ExpensifierController extends GetxController
     ProfileScreen()
   ];
 
+  RxString selAddExpenseScreen = "".obs;
+
   Rx<Color> expenseScreenBgColor = Color(0xff0077FF).obs;
+
+  RxString selTransferFrom = "BHIM".obs;
+  RxString selTransferTo = "PhonePay".obs;
+
 
   RxList itemList = [].obs;
 

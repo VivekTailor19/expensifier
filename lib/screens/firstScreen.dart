@@ -40,7 +40,10 @@ class _FirstScreenState extends State<FirstScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
 
-                  GestureDetector(onTap:() =>  Get.back(),
+                  GestureDetector(onTap:() {
+                    Get.back();
+                    Get.toNamed("/expense",arguments: {"status":"transfer"});
+                  },
                     child: MoneyItem(title: "Add",imgPath: "assets/images/first/Transaction.png")),
                   Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [

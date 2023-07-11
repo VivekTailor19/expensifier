@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -11,6 +12,8 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
+
+    Future.delayed(Duration(seconds: 3,),() => Get.toNamed("/first"),);
     return SafeArea(
       child: Scaffold(backgroundColor: Color(0xffA97FFA),
         body: Center(child: Column(mainAxisAlignment: MainAxisAlignment.spaceAround,
