@@ -25,7 +25,7 @@ class _FirstScreenState extends State<FirstScreen> {
 
         child: Scaffold(
 
-          //body:Obx(() =>  control.screenList[control.indexBottomBar.value]),
+          body:Obx(() =>  control.screenList[control.indexBottomBar.value]),
 
 
           floatingActionButton:
@@ -34,7 +34,7 @@ class _FirstScreenState extends State<FirstScreen> {
             Get.bottomSheet(backgroundColor: Colors.transparent,
               enableDrag: true,
 
-              Container(height: 50.h,width: 100.w,color: Colors.transparent,
+              Container(height: 40.h,width: 100.w,color: Colors.transparent,
               alignment: Alignment.bottomCenter,
               child: Column(mainAxisAlignment: MainAxisAlignment.end,
                 mainAxisSize: MainAxisSize.min,
@@ -84,13 +84,13 @@ class _FirstScreenState extends State<FirstScreen> {
               padding:  EdgeInsets.symmetric(horizontal: 3.w),
               child: Row(mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  BottomItem(title: "Home",iconData:Icons.home_rounded ),
+                  BottomItem(title: "Home",iconData:Icons.home_rounded ,index: 0),
                 SizedBox(width: 1.w,),
-                  BottomItem(title: "Transaction",iconData:Icons.home_rounded ),
+                  BottomItem(title: "Transaction",iconData:Icons.home_rounded ,index: 1),
                 Spacer(),
-                  BottomItem(title: "Budget",iconData:Icons.home_rounded ),
+                  BottomItem(title: "Budget",iconData:Icons.home_rounded ,index: 2),
                 SizedBox(width: 1.w,),
-                  BottomItem(title: "Profile",iconData:Icons.home_rounded ),
+                  BottomItem(title: "Profile",iconData:Icons.home_rounded ,index: 3),
     ],),
             ),
         ),
@@ -115,14 +115,19 @@ class _FirstScreenState extends State<FirstScreen> {
     );
   }
 
-  Widget BottomItem({title,iconData})
+  Widget BottomItem({title,iconData,index})
   {
-    return SizedBox(width: 75,
-      child: Column(mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(iconData, size: 30,color: Color(0xffC6C6C6)),
-          Text("$title",style: TextStyle(color:Color(0xff7F3DFF),fontSize: 13.5 ),),
-        ],),
+    return GestureDetector(
+      onTap: () {
+        control.indexBottomBar.value = index;
+      },
+      child: SizedBox(width: 75,
+        child: Column(mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(iconData, size: 30,color: Color(0xffC6C6C6)),
+            Text("$title",style: TextStyle(color:Color(0xff7F3DFF),fontSize: 13.5 ),),
+          ],),
+      ),
     );
   }
 

@@ -26,6 +26,9 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
   @override
   void initState() {
     super.initState();
+
+    control.selDate.value = control.setDateFormat(DateTime.now());
+
     mapData = Get.arguments;
 
     if (mapData['status'] == 'income')
@@ -104,6 +107,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                 )),
 
             mapData['status'] != 'transfer'
+
                 ? SingleChildScrollView(
               child: Container(
                 width: 100.w,
@@ -198,6 +202,60 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                     ),
                   ),
                   SizedBox(height: 2.h),
+                  Container(
+                    height: 8.h,
+                    width: 100.w,
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.symmetric(horizontal: 5.w),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.w),
+                        ),
+                    child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+
+                          GestureDetector(
+                            onTap: () async {
+                              DateTime? selectdate = await showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(2001),
+                                  lastDate: DateTime(2050));
+
+                              control.selDate.value = control.setDateFormat(selectdate!);
+
+                            },
+                            child: Row( mainAxisSize: MainAxisSize.min,
+                              children: [
+
+                                Icon(Icons.calendar_month_rounded,size: 30.sp,color: Color(0xff7A7E80)),
+                                SizedBox(width: 2.w,),
+                                Obx(() => Text("${control.selDate.value}",style: TextStyle(fontSize: 12.sp),)),
+
+                              ],
+                            ),
+                          ),
+
+                          GestureDetector(
+                            onTap: () async {
+                              TimeOfDay? selecttime = await showTimePicker(
+                                  context: context, initialTime: TimeOfDay.now());
+                              control.selTime.value = "$selecttime";
+                            },
+                            child: Row( mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Icon(Icons.watch_later_outlined,size: 30.sp,color: Color(0xff7A7E80)),
+                                SizedBox(width: 2.w,),
+                                Obx(() =>  Text("${control.selTime.value}",style: TextStyle(fontSize: 12.sp),)),
+                              ],
+                            ),
+                          ),
+
+
+
+                        ],
+                      ),
+                  ),
+                  SizedBox(height: 2.h),
                   Obx(
                     () => Container(
                       height: 8.h,
@@ -239,7 +297,11 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                           status: mapData['status'],
                           category: control.selCategoryType.value,
                           description: tdesc.text,
-                          paymentType: control.selWalletType.value);
+                          paymentType: control.selWalletType.value,
+                          date: control.selDate.value,
+                          time: control.selTime.value
+
+                      );
 
                       await expense_db_helper.insertInDB(model);
 
@@ -269,6 +331,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                 ]),
               ),
             )
+
                 : SingleChildScrollView(
               child: Container(
                 width: 100.w,
@@ -283,30 +346,31 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                   SizedBox(height: 5.h),
                   Obx(
                         () => Stack(
-                          children: [Row(
+                          children: [
+                            Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Container(
-                      height: 8.h,
-                      width: 45.w,
-                      alignment: Alignment.center,
-                      padding: EdgeInsets.symmetric(horizontal: 5.w),
-                      decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.w),
-                                border: Border.all(color: Colors.black12)),
-                      child: DropdownButton(
-                          hint: Text("From"),
-                              borderRadius: BorderRadius.circular(5.w),
+                                height: 8.h,
+                                width: 40.w,
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.symmetric(horizontal: 5.w),
+                                decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(10.w),
+                                          border: Border.all(color: Colors.black12)),
+                                child: DropdownButton(
 
-                              // dropdownColor: Colors.amber,
-                              isExpanded: true,
-                              icon: Icon(Icons.expand_more_rounded,size: 0,),
-                              underline: Container(),
+                                        borderRadius: BorderRadius.circular(5.w),
 
-                              value: control.selTransferFrom.value,
-                              items: control.walletList
-                                  .map((e) => DropdownMenuItem(
-                                  value: e,
-                                  child: Text("$e"),
+                                        // dropdownColor: Colors.amber,
+                                        isExpanded: true,
+                                        icon: Icon(Icons.expand_more_rounded,size: 0,),
+                                        underline: Container(),
+
+                                        value: control.selTransferFrom.value,
+                                        items: control.walletList
+                                            .map((e) => DropdownMenuItem(
+                                            value: e,
+                                  child: Center(child: Text("$e")),
                                   alignment: Alignment.centerLeft))
                                   .toList(),
                               onChanged: (value) {
@@ -314,14 +378,13 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                               },
                       ),
                     ),
-                              Container(height: 15.w,width: 15.w,decoration: BoxDecoration(shape: BoxShape.circle,color: Colors.amber),),
                               Container(
                       height: 8.h,
-                      width: 45.w,
+                      width: 40.w,
                       alignment: Alignment.center,
                       padding: EdgeInsets.symmetric(horizontal: 5.w),
                       decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5.w),
+                                borderRadius: BorderRadius.circular(10.w),
                                 border: Border.all(color: Colors.black12)),
                       child: DropdownButton(
                               borderRadius: BorderRadius.circular(5.w),
@@ -335,7 +398,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                               items: control.walletList
                                   .map((e) => DropdownMenuItem(
                                   value: e,
-                                  child: Text("$e"),
+                                  child: Center(child: Text("$e")),
                                   alignment: Alignment.centerLeft))
                                   .toList(),
                               onChanged: (value) {
@@ -344,9 +407,17 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                       ),
                     ),
                             ],
-                          ),]
-                        ),
+                          ),
+                            Align(alignment: Alignment(0,0),
+                              child: Container(height: 15.w,width: 15.w,
+                                  decoration: BoxDecoration(shape: BoxShape.circle,border: Border.all(color: Color(0xffF1F1FA),width: 1 )),
+                                child: CircleAvatar(radius: 3.w,backgroundImage: AssetImage("assets/images/first/transfer.png"),backgroundColor: Colors.white,),
+
+                            ),
+                            )
+                      ],
                   ),
+                        ),
                   SizedBox(height: 2.h),
                   TextField(
                     controller: tdesc,
@@ -401,19 +472,6 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                   SizedBox(height: 2.h),
                   GestureDetector(
                     onTap: () async {
-                      Expensifier_DB_Helper expense_db_helper =
-                      Expensifier_DB_Helper();
-
-                      ExpenseModel model = ExpenseModel(
-                          amount: int.parse(tamount.text),
-                          status: mapData['status'],
-                          category: control.selCategoryType.value,
-                          description: tdesc.text,
-                          paymentType: control.selWalletType.value);
-
-                      await expense_db_helper.insertInDB(model);
-
-                      await control.load_ExpensifierDB();
 
                       Get.back();
                     },

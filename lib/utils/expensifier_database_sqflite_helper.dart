@@ -29,7 +29,7 @@ class Expensifier_DB_Helper
   async {
     Directory dir = await getApplicationDocumentsDirectory();
     final path = join(dir.path, dbPath);
-    String query = 'CREATE TABLE $dbTableName (id INTEGER PRIMARY KEY AUTOINCREMENT, amount TEXT, status TEXT, category TEXT, paymentType TEXT, description TEXT ,img BLOB)';
+    String query = 'CREATE TABLE $dbTableName (id INTEGER PRIMARY KEY AUTOINCREMENT, amount TEXT, status TEXT, category TEXT, paymentType TEXT, description TEXT ,date TEXT, time TEXT,img BLOB)';
 
     return await openDatabase(
       path, version: 1,
@@ -47,7 +47,9 @@ class Expensifier_DB_Helper
       'status':expenseModel.status,
       'category':expenseModel.category,
       'description':expenseModel.description,
-      'paymentType':expenseModel.paymentType
+      'paymentType':expenseModel.paymentType,
+      'date':expenseModel.date,
+      'time':expenseModel.time
       //'img':expenseModel.img
     }
 
@@ -87,7 +89,9 @@ class Expensifier_DB_Helper
       'status':expenseModel.status,
       'category':expenseModel.category,
       'description':expenseModel.description,
-      'paymentType':expenseModel.paymentType
+      'paymentType':expenseModel.paymentType,
+      'date':expenseModel.date,
+      'time':expenseModel.time
     }, where: "id=?",whereArgs: [expenseModel.id]);
 
   }

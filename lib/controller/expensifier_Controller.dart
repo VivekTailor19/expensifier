@@ -7,6 +7,8 @@ import 'package:expensifier/utils/expensifier_database_sqflite_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'package:intl/intl.dart';
+
 class ExpensifierController extends GetxController
 {
 
@@ -72,11 +74,19 @@ class ExpensifierController extends GetxController
 
   }
 
-
   RxString selWalletType = 'PayTM'.obs;
   List<String> walletList = ['PayTM','PayPal','PhonePay','GooglePay','BHIM',];
 
+  //   Date
 
+  RxString selDate = "${DateTime.now()}".obs;
+  String setDateFormat(DateTime dt)
+  {
+    var f = DateFormat("dd-MM-yyyy");
+    return f.format(dt);
+  }
+
+  RxString selTime = "${TimeOfDay.now()}".obs;
 
 
   // FilterDatas

@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 class ExpenseModel
 {
   int? id,amount;
-  String? category,status,description,paymentType;
+  String? category,status,description,paymentType,date,time;
 
   Uint8List? img;
 
@@ -14,5 +14,7 @@ class ExpenseModel
       this.status,
       this.description,
       this.paymentType,
+      this.date,
+      this.time,
       this.img});
 }
