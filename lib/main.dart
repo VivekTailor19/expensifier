@@ -24,8 +24,8 @@ void main() {
         theme: ThemeData(fontFamily: 'OpenSans'),
          //initialRoute: "/update",
         routes: {
-          "/":(p0) => UpdateExpense_DATA(),
-          // "/":(p0) => SplashScreen(),
+          //"/":(p0) => UpdateExpense_DATA(),
+           "/":(p0) => SplashScreen(),
           "/first":(p0) => FirstScreen(),
           "/expense":(p0) => AddExpenseScreen(),
           "/update":(p0) => UpdateExpense_DATA(),

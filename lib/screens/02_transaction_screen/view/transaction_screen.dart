@@ -1,4 +1,5 @@
 import 'package:expensifier/controller/expensifier_Controller.dart';
+import 'package:expensifier/model/expense_model.dart';
 import 'package:expensifier/utils/expensifier_database_sqflite_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -142,17 +143,16 @@ class _TransactionScreenState extends State<TransactionScreen> {
 
                      return GestureDetector(
 
-                       onDoubleTap: ()  async {
-                         Expensifier_DB_Helper expense_db_helper = Expensifier_DB_Helper();
-                         int delId = control.itemList[index]['id'];
 
-                         print(delId);
-                         await expense_db_helper.deleteInDB(delId);
-                         await control.load_ExpensifierDB();
-
-                       },
 
                        onTap: () {
+
+                         print("click transaction item");
+
+                         Get.toNamed("/update",arguments: {
+                           "status" : "${control.itemList[index]['expense']}" ,
+                           "id" : "${control.itemList[index]['id']}"
+                         });
 
                        },
 

@@ -298,6 +298,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                   ),
                   SizedBox(height: 2.h),
                   GestureDetector(
+
                     onTap: () async {
                       Expensifier_DB_Helper expense_db_helper =
                           Expensifier_DB_Helper();
