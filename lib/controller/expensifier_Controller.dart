@@ -48,6 +48,7 @@ class ExpensifierController extends GetxController {
   }
 
 
+
   RxString titleAddScreen = "Income".obs;
 
   Rx<Color> expenseScreenBgColor = Color(0xff0077FF).obs;
