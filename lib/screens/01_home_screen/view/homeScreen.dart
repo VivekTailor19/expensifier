@@ -13,6 +13,12 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
 
   ExpensifierController control = Get.put(ExpensifierController());
+  @override
+  void initState() {
+    super.initState();
+
+    control.loadTotalFind();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     Text("Account Balance",style: TextStyle(fontSize: 13.sp,color: Colors.black38),),
 
-                    Text("₹ 9400",style: TextStyle(fontSize: 25.sp,fontWeight: FontWeight.w600),),
+                    Text("\$ 91066154",style: TextStyle(fontSize: 25.sp,fontWeight: FontWeight.w600),),
                   ],
                 ),
               ),
@@ -47,8 +53,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
               Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  transactionTypeTab(title: "Income",amount: 50000,colour:Color(0xff00A86B) ),
-                  transactionTypeTab(title: "Expense",amount: 5000,colour:Colors.red ),
+                  transactionTypeTab(title: "Income",colour:Color(0xff00A86B),
+                      amount:control.totalIncome.value ,
+                      image: "assets/images/first/Income.png" ),
+                  transactionTypeTab(title: "Expense",colour:Color(0xffFD3C4A),
+                      amount:control.totalExpense.value ,
+                      image: "assets/images/first/Expense.png" ),
                 ],
               ),
 
@@ -76,7 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           amount: control.itemList[index]['amount'],
                           status: control.itemList[index]['status'],
                           category: control.itemList[index]['category'],
-                          desc: control.itemList[index]['description'],
+                          paymentType: control.itemList[index]['paymentType'],
                           categoryImg: control.selCategoryImgPath.value,
                           categoryColor: control.selCategoryBg.value
                       );
@@ -94,14 +104,15 @@ class _HomeScreenState extends State<HomeScreen> {
   Container transactionTypeTab({title, colour, amount, image}) {
     return Container(height: 11.h,width: 45.w,
           alignment: Alignment.center,
-          padding: EdgeInsets.only(left: 3.w,right: 1.w),
+          padding: EdgeInsets.only(left: 2.w,right: 1.w),
           decoration: BoxDecoration(borderRadius: BorderRadius.circular(8.w),
             color: colour),
           child: Row(
             children: [
-              Container(height: 6.h,width: 6.h,
+              Container(height: 7.h,width: 7.h,
               decoration: BoxDecoration(borderRadius: BorderRadius.circular(3.w),
-              color: Colors.white),),
+              image: DecorationImage(image: AssetImage("$image"),fit: BoxFit.fill),
+              color: colour),),
 
               SizedBox(width:3.w),
               Column(
@@ -109,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                 Text("$title",style: TextStyle(fontSize: 13.sp,color: Colors.white,fontWeight: FontWeight.w300)),
-                Text("\$ $amount",style: TextStyle(fontSize: 16.sp,color: Colors.white),)
+                Text(amount == "" ? "\$ 5000" : "$amount",style: TextStyle(fontSize: 16.sp,color: Colors.white),)
               ],)
           ],),
 
@@ -117,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
 
-  Widget ItemListTile({category,desc,amount,time,categoryImg,categoryColor,status})
+  Widget ItemListTile({category,paymentType,amount,time,categoryImg,categoryColor,status})
   {
     return Container(height: 8.h,width: 100.w,
       margin: EdgeInsets.symmetric(horizontal: 5.w,vertical: 1.5.h),
@@ -135,13 +146,14 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("$category"),
-                    Text(status=='income'?" ₹ $amount":"- ₹ $amount",style: TextStyle(color: status=='income'?Colors.green:Colors.red),)
+                    Text("$category",style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w400),),
+                    Text(status=='Income'?" \$ $amount":"- \$ $amount",style: TextStyle(color: status=='Income'?Colors.green:Colors.red),)
                   ],
                 ),
                 Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text("$desc"),Text("Time 10.00 AM")
+                    Text("$paymentType"),
+                    Text("10.00 AM")
                   ],
                 ),
               ],),

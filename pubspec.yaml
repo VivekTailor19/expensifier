@@ -70,6 +70,7 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
+    - assets/images/
     - assets/images/first/
     - assets/images/category/
     - assets/images/splash/

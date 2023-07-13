@@ -29,7 +29,7 @@ class Expensifier_DB_Helper
   async {
     Directory dir = await getApplicationDocumentsDirectory();
     final path = join(dir.path, dbPath);
-    String query = 'CREATE TABLE $dbTableName (id INTEGER PRIMARY KEY AUTOINCREMENT, amount TEXT, status TEXT, category TEXT, paymentType TEXT, description TEXT ,date TEXT, time TEXT,img BLOB)';
+    String query = 'CREATE TABLE $dbTableName (id INTEGER PRIMARY KEY AUTOINCREMENT, amount TEXT, status TEXT, category TEXT, paymentType TEXT, description TEXT ,date TEXT, time TEXT)';
 
     return await openDatabase(
       path, version: 1,
@@ -50,9 +50,7 @@ class Expensifier_DB_Helper
       'paymentType':expenseModel.paymentType,
       'date':expenseModel.date,
       'time':expenseModel.time
-      //'img':expenseModel.img
     }
-
     );
 
   }
@@ -61,15 +59,6 @@ class Expensifier_DB_Helper
   async {
     database = await checkDB();
     String query = 'SELECT * FROM $dbTableName';
-    List<Map> list = await database!.rawQuery(query);
-    // print(list);
-    return list;
-  }
-
-  Future<List<Map>> readFilteredDB(String cate)
-  async {
-    database = await checkDB();
-    String query = 'SELECT * FROM $dbTableName WHERE category = "$cate"';
     List<Map> list = await database!.rawQuery(query);
     // print(list);
     return list;
@@ -94,6 +83,50 @@ class Expensifier_DB_Helper
       'time':expenseModel.time
     }, where: "id=?",whereArgs: [expenseModel.id]);
 
+  }
+
+
+  Future<List<Map>> readFilteredDB({cate,filterBy})
+  async {
+    database = await checkDB();
+    String query = "";
+
+  //  print("cate ==> $cate ${cate.length}  && filterBy ==> $filterBy");
+
+    if(cate != "" && filterBy == "")
+      {
+        query = 'SELECT * FROM $dbTableName WHERE category = "$cate" ';
+      }
+    else if(cate == "" && filterBy != "")
+      {
+        query = 'SELECT * FROM $dbTableName WHERE status = "$filterBy" ';
+      }
+    else
+      {
+        query = 'SELECT * FROM $dbTableName WHERE category = "$cate" && status = "$filterBy" ';
+      }
+    List<Map> list = await database!.rawQuery(query);
+    print(list);
+    return list;
+  }
+
+  Future<List<Map<String, Object?>>> readMatheMatics(String status)
+  async {
+    database = await checkDB();
+    String query = "";
+
+    if(status == 'Income')
+      {
+        query = 'SELECT SUM(amount) FROM $dbTableName WHERE status = "Income"';
+
+      }
+    else if(status == 'Expense')
+      {
+        query = 'SELECT SUM(amount) FROM $dbTableName WHERE status = "Income"';
+
+      }
+     List<Map<String, Object?>> list = await database!.rawQuery(query);
+     return list;
   }
 
 }

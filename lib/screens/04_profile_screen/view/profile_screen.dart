@@ -12,7 +12,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("ProfileScreen"),),
+      body : Center(child: Text("Coming Soon....")),
     );
   }
 }

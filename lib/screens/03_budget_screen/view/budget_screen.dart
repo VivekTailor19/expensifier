@@ -12,7 +12,7 @@ class _BudgetScreenState extends State<BudgetScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("BudgetScreen"),),
+      body: Center(child: Text("Coming Soon....")),
     );
   }
 }

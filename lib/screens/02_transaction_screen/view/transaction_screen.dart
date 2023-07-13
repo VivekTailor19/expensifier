@@ -1,7 +1,5 @@
 import 'package:expensifier/controller/expensifier_Controller.dart';
-import 'package:expensifier/model/expense_model.dart';
-import 'package:expensifier/utils/expensifier_database_sqflite_helper.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
@@ -17,11 +15,6 @@ class _TransactionScreenState extends State<TransactionScreen> {
 
   ExpensifierController control = Get.put(ExpensifierController());
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   control.load_ExpensifierDB();
-  // }
   
   @override
   Widget build(BuildContext context) {
@@ -57,6 +50,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                    GestureDetector(
                      onTap:  () {
                        Get.bottomSheet(
+                         isScrollControlled: true,
                            Container(
                              height: 60.h,width: 100.w, decoration: BoxDecoration(color: Colors.white,
                          borderRadius: BorderRadius.only(topLeft: Radius.circular(8.w),topRight: Radius.circular(8.w))),
@@ -67,32 +61,160 @@ class _TransactionScreenState extends State<TransactionScreen> {
                                  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                    children: [
                                    Text("Filter Transaction",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 16.sp),),
-                                   Container(height: 4.h,width: 20.w,alignment:Alignment.center,
-                                     decoration: BoxDecoration(color: Colors.indigo.shade100,borderRadius: BorderRadius.circular(2.h)),
+                                   GestureDetector(
+                                     onTap: () async {
+                                       control.selectedIndexFilterBy.value = -1;
+                                       control.selectedFilterBy.value = "";
+                                       control.selectedIndexSortBy.value = -1;
+                                       control.selectedSortBy.value = "";
+                                       control.selectedIndexCategory.value = -1;
+                                       control.selectedFilterCategory.value = "";
 
-                                     child:Text("Reset",style: TextStyle(color: Colors.indigo,fontSize: 14.sp,fontWeight: FontWeight.w300),),)
+                                       await control.load_ExpensifierDB();
+                                     },
+                                     child: Container(height: 4.h,width: 20.w,alignment:Alignment.center,
+                                       decoration: BoxDecoration(color: Colors.indigo.shade100,borderRadius: BorderRadius.circular(2.h)),
+
+                                       child:Text("Reset",style: TextStyle(color: Colors.indigo,fontSize: 14.sp,fontWeight: FontWeight.w300),),),
+                                   )
                                  ],),
 
-                                 Text("Filter By",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 15.sp),),
-
-                                 Obx(
-                                   () =>  Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                     children: [
-                                     SelectionOptionTile(title: "Income",textColor: control.selIncomeTextColor.value,tileBg: control.selIncomeBoxColor.value),
-                                     SelectionOptionTile(title: "Expense",textColor: control.selExpenseTextColor.value,tileBg: control.selExpenseBoxColor.value),
-                                     SelectionOptionTile(title: "Transfer",textColor: control.selTransferTextColor.value,tileBg: control.selTransferBoxColor.value),
-                                   ],),
+                                 Padding(
+                                   padding: EdgeInsets.symmetric(vertical: 1.h),
+                                   child: Text("Filter By",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 15.sp),),
                                  ),
 
+                                      SizedBox(height:5.h,
+                                         child: ListView.builder(
+                                           scrollDirection: Axis.horizontal,
+                                           itemCount: control.filterByList.length,
+                                           itemBuilder: (context, index) {
+
+                                             // control.selFilterByColorText.value = Colors.amber ;
+                                         // control.selFilterByColorBox.value = Colors.white ;
+                                         // if(control.selectedIndex.value == control.filterByList[index])
+                                         // {
+                                         //   control.selFilterByColorText.value =  Colors.white;
+                                         //   control.selFilterByColorBox.value = Colors.yellow;
+                                         // }
+
+                                         return  GestureDetector(
+                                               onTap: () {
+                                                 control.selectionFilterBy(index);
+
+                                                 // print("selected filterby  === ${control.selectedFilterBy.value}");
+                                                 // print("color text == >> ${control.selFilterByColorText}");
+                                                 // print("index = $index");
+                                               },
+                                               child: Obx(
+                                                 () =>  Container(height: 5.h,width: 25.w,margin: EdgeInsets.only(right: 5.w),
+                                                       alignment:Alignment.center,
+                                                       decoration: BoxDecoration(color: control.selectedIndexFilterBy.value == index ? Color(0xffEEE5FF) : Color(0xffffffff),
+                                                           borderRadius: BorderRadius.circular(2.5.h),border: Border.all(color: Colors.black12)),
+
+                                                       child: Text("${control.filterByList[index]}",style: TextStyle(color: control.selectedIndexFilterBy.value == index ? Color(0xff7F3DFF) :Color(0xff0D0E0F),fontSize: 14.sp,fontWeight: FontWeight.w300),),),
+                                               ),
+
+                                         );
+                                       },
+                                     ),
+                                   ),
+
+                                 Padding(
+                                     padding: EdgeInsets.symmetric(vertical: 1.h),
+                                     child: Text("Sort By",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 15.sp),)),
+
+                                      SizedBox(height:10.h,
+                                     child: GridView.builder(
+                                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3,childAspectRatio: 3,),
 
 
-                                 Text("Sort By",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 15.sp),),
+                                       itemCount: control.sortByList.length,
+                                       itemBuilder: (context, index) {
 
-                                 Text("Category",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 15.sp),),
+                                         // control.selFilterByColorText.value = Colors.amber ;
+                                         // control.selFilterByColorBox.value = Colors.white ;
+                                         // if(control.selectedIndex.value == control.filterByList[index])
+                                         // {
+                                         //   control.selFilterByColorText.value =  Colors.white;
+                                         //   control.selFilterByColorBox.value = Colors.yellow;
+                                         // }
+
+                                         return  GestureDetector(
+                                           onTap: () {
+                                             control.selectionSortBy(index);
+                                           },
+                                           child: Obx(
+                                                 () =>  Padding(
+                                                   padding: EdgeInsets.only(bottom: 1.w),
+                                                   child: Container(
+                                                     height: 5.h,width: 25.w,margin: EdgeInsets.only(right: 5.w),
+                                                     alignment:Alignment.center,
+                                                     decoration: BoxDecoration(color: control.selectedIndexSortBy.value == index ? Color(0xffEEE5FF) : Color(0xffffffff),
+                                                         borderRadius: BorderRadius.circular(2.5.h),border: Border.all(color: Colors.black12)),
+
+                                                     child: Text("${control.sortByList[index]}",style: TextStyle(color: control.selectedIndexSortBy.value == index ? Color(0xff7F3DFF) :Color(0xff0D0E0F),fontSize: 14.sp,fontWeight: FontWeight.w300),),),
+                                                 ),
+                                           ),
+
+
+
+
+                                         );
+                                       },
+                                     ),
+                                   ),
+
+                                 Padding(
+                                   padding: EdgeInsets.symmetric(vertical: 1.h),
+                                   child: Text("Category",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 15.sp),),
+                                 ),
+
+                                       SizedBox(height:12.h,
+                                          child: GridView.builder(
+                                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3,childAspectRatio: 3,),
+
+                                            itemCount: control.categoryList.length,
+                                            itemBuilder: (context, index) {
+
+                                              return  GestureDetector(
+                                                onTap: () {
+                                                  control.selectionCategory(index);
+                                                },
+                                                child: Obx(() =>  Padding(
+                                                            padding: EdgeInsets.only(bottom: 1.w),
+                                                            child: Container(
+                                                              height: 5.h,width: 30.w,margin: EdgeInsets.only(right: 2.w),
+                                                              alignment:Alignment.center,
+                                                              decoration: BoxDecoration(color: control.selectedIndexCategory.value == index ? Color(0xffEEE5FF) : Color(0xffffffff),
+                                                                  borderRadius: BorderRadius.circular(2.5.h),border: Border.all(color: Colors.black12)),
+
+                                                              child: Text("${control.categoryList[index]}",style: TextStyle(color: control.selectedIndexCategory.value == index ? Color(0xff7F3DFF) :Color(0xff0D0E0F),fontSize: 12.sp,fontWeight: FontWeight.w300),),),
+                                                          ),
+                                                      ),
+
+                                              );
+                                            },
+                                          ),
+                                        ),
+
 
                                  GestureDetector(
-                                   onTap: () {
-                                     control.load_FilteredDB(control.selFilterCategory.value);
+                                   onTap: () async {
+
+                                     if(control.selectedFilterBy == "" && control.selectedFilterCategory == "" )
+                                       {
+                                         await control.load_ExpensifierDB();
+                                       }
+                                     else
+                                       {
+                                         control.load_FilteredDB(
+                                             cate:control.selectedFilterCategory.value,
+                                             filterBy: control.selectedFilterBy.value
+                                         );
+                                       }
+
+                                    Get.back();
                                    },
                                    child: Container(height: 7.h,width: 100.w,alignment: Alignment.center,
                                        padding: EdgeInsets.symmetric(horizontal: 5.w),
@@ -134,33 +256,27 @@ class _TransactionScreenState extends State<TransactionScreen> {
 
                Obx(
                  () =>  ListView.builder(
-                   itemCount: control.itemList.length,
+                   itemCount: control.filterList.length,
                    reverse: true,
                    shrinkWrap:true,
                    physics: NeverScrollableScrollPhysics(),
                    itemBuilder: (context, index) {
-                     control.selCategoryTab(control.itemList[index]['category']);
+                     control.selCategoryTab(control.filterList[index]['category']);
 
-                     return GestureDetector(
-
-
+                     return InkWell(
 
                        onTap: () {
 
                          print("click transaction item");
 
-                         Get.toNamed("/update",arguments: {
-                           "status" : "${control.itemList[index]['expense']}" ,
-                           "id" : "${control.itemList[index]['id']}"
-                         });
-
+                         Get.toNamed("/update",arguments: {"index":index});
                        },
 
                        child: ItemListTile(
-                         amount: control.itemList[index]['amount'],
-                         status: control.itemList[index]['status'],
-                         category: control.itemList[index]['category'],
-                         desc: control.itemList[index]['description'],
+                         amount: control.filterList[index]['amount'],
+                         status: control.filterList[index]['status'],
+                         category: control.filterList[index]['category'],
+                         paymentType: control.filterList[index]['paymentType'],
                          categoryImg: control.selCategoryImgPath.value,
                          categoryColor: control.selCategoryBg.value
                        ),
@@ -175,7 +291,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
     );
   }
 
-  Widget ItemListTile({category,desc,amount,time,categoryImg,categoryColor,status})
+  Widget ItemListTile({category,paymentType,amount,time,categoryImg,categoryColor,status})
   {
     return  Container(height: 8.h,width: 100.w,
         margin: EdgeInsets.symmetric(horizontal: 5.w,vertical: 1.5.h),
@@ -193,13 +309,14 @@ class _TransactionScreenState extends State<TransactionScreen> {
                 children: [
                   Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("$category"),
-                      Text(status=='income'?" ₹ $amount":"- ₹ $amount",style: TextStyle(color: status=='income'?Colors.green:Colors.red),)
+                      Text("$category",style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w400),),
+                      Text(status=='Income'?" \$ $amount":"- \$ $amount",style: TextStyle(color: status=='Income'?Colors.green:Colors.red),)
                     ],
                   ),
                   Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("$desc"),Text("Time 10.00 AM")
+                      Text("$paymentType"),
+                      Text("10.00 AM")
                     ],
                   ),
 
@@ -209,20 +326,6 @@ class _TransactionScreenState extends State<TransactionScreen> {
           ],
         ),
       );
-  }
-
-  Widget SelectionOptionTile({title,textColor,tileBg})
-  {
-    return GestureDetector(
-      onTap: () {
-        print(title);
-        control.selectFilterByExpense(title);
-      },
-      child: Container(height: 5.h,width: 25.w,alignment:Alignment.center,
-        decoration: BoxDecoration(color: tileBg,borderRadius: BorderRadius.circular(2.5.h),border: Border.all(color: Colors.black12)),
-
-        child:Text("$title",style: TextStyle(color: textColor,fontSize: 14.sp,fontWeight: FontWeight.w300),),),
-    );
   }
 
 }
