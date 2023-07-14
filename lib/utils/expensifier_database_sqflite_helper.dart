@@ -101,6 +101,7 @@ class Expensifier_DB_Helper
       {
         query = 'SELECT * FROM $dbTableName WHERE status = "$filterBy" ';
       }
+
     else
       {
         query = 'SELECT * FROM $dbTableName WHERE category = "$cate" AND status = "$filterBy" ';
