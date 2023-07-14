@@ -86,17 +86,18 @@ class _FirstScreenState extends State<FirstScreen> {
             child: Padding(
               padding:  EdgeInsets.symmetric(horizontal: 3.w),
               child: Row(mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  BottomItem(title: "Home",iconData:Icons.home_rounded ,index: 0),
-                SizedBox(width: 1.w,),
-                  BottomItem(title: "Transaction",iconData:Icons.home_rounded ,index: 1),
-                Spacer(),
-                  BottomItem(title: "Budget",iconData:Icons.home_rounded ,index: 2),
-                SizedBox(width: 1.w,),
-                  BottomItem(title: "Profile",iconData:Icons.home_rounded ,index: 3),
+                  children: [
+                    BottomItem(title: "Home",iconData:Icons.home_rounded ,index: 0, ),
+                  SizedBox(width: 1.w,),
+                    BottomItem(title: "Transaction",iconData:Icons.receipt_long_rounded ,index: 1),
+                  Spacer(),
+                    BottomItem(title: "Budget",iconData:Icons.pie_chart ,index: 2),
+                  SizedBox(width: 1.w,),
+                    BottomItem(title: "Profile",iconData:Icons.person ,index: 3),
     ],),
+              ),
             ),
-        ),
+
         ),
 
 
@@ -120,14 +121,23 @@ class _FirstScreenState extends State<FirstScreen> {
 
   Widget BottomItem({title,iconData,index})
   {
-    return GestureDetector(
+    return InkWell(
       onTap: () {
         control.indexBottomBar.value = index;
+        if( index != control.indexBottomBar.value)
+          {
+            control.bottomColour.value = Color(0xffC6C6C6);
+          }
+        else
+          {
+            control.bottomColour.value = Color(0xff7F3DFF);
+          }
+        print(control.bottomColour.value );
       },
       child: SizedBox(width: 75,
         child: Column(mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(iconData, size: 30,color: Color(0xffC6C6C6)),
+            Obx(() =>  Icon(iconData, size: 30,color: control.bottomColour.value )),
             Text("$title",style: TextStyle(color:Color(0xff7F3DFF),fontSize: 13.5 ),),
           ],),
       ),
@@ -135,6 +145,7 @@ class _FirstScreenState extends State<FirstScreen> {
   }
 
 }
+
 
 
 

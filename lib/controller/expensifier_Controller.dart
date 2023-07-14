@@ -31,6 +31,8 @@ class ExpensifierController extends GetxController {
     ProfileScreen()
   ];
 
+  Rx<Color> bottomColour = Color(0xffC6C6C6).obs;
+
   RxInt additionIncome = 0.obs;
   var additionExpense = 0;
 
