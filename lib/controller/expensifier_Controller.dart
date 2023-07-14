@@ -31,20 +31,20 @@ class ExpensifierController extends GetxController {
     ProfileScreen()
   ];
 
-  RxList<Map> additionIncome = <Map>[].obs;
-  RxList<Map> additionExpense = <Map>[].obs;
+  RxInt additionIncome = 0.obs;
+  var additionExpense = 0;
 
   RxString totalIncome = "".obs;
   RxString totalExpense = "".obs;
 
   Future<void> loadTotalFind()
   async {
-    additionIncome.value = await Expensifier_DB_Helper.expense_db.readMatheMatics('Income');
-    additionExpense.value = await Expensifier_DB_Helper.expense_db.readMatheMatics('Expense');
-    print("${additionIncome.value}");
+    additionIncome.value = (await Expensifier_DB_Helper.expense_db.readMatheMatics('Income')) as int ;
+    additionExpense = (await Expensifier_DB_Helper.expense_db.readMatheMatics('Expense')) as int;
+    print("${additionIncome}");
 
-    totalIncome.value =   additionIncome.join("");
-    totalExpense.value =  additionExpense.join("");
+    // totalIncome.value =   additionIncome.join("");
+    // totalExpense.value =  additionExpense.join("");
   }
 
 

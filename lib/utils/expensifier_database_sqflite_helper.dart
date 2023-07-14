@@ -103,14 +103,14 @@ class Expensifier_DB_Helper
       }
     else
       {
-        query = 'SELECT * FROM $dbTableName WHERE category = "$cate" && status = "$filterBy" ';
+        query = 'SELECT * FROM $dbTableName WHERE category = "$cate" AND status = "$filterBy" ';
       }
     List<Map> list = await database!.rawQuery(query);
     print(list);
     return list;
   }
 
-  Future<List<Map<String, Object?>>> readMatheMatics(String status)
+  Future<Map<String, Object?>> readMatheMatics(String status)
   async {
     database = await checkDB();
     String query = "";
@@ -122,11 +122,13 @@ class Expensifier_DB_Helper
       }
     else if(status == 'Expense')
       {
-        query = 'SELECT SUM(amount) FROM $dbTableName WHERE status = "Income"';
+        query = 'SELECT SUM(amount) FROM $dbTableName WHERE status = "Expense"';
 
       }
      List<Map<String, Object?>> list = await database!.rawQuery(query);
-     return list;
+    var temp = list[0];
+    print ("temp = $temp");
+     return temp;
   }
 
 }

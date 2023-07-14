@@ -34,8 +34,10 @@ class _HomeScreenState extends State<HomeScreen> {
               SizedBox(height: 2.h,),
               Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,
                 children: [
-                CircleAvatar(backgroundColor: Colors.red,radius: 5.w,),
-                  Icon(Icons.notification_add_rounded),
+                CircleAvatar(backgroundImage: AssetImage("assets/images/person.png",),radius: 5.w,),
+                IconButton(icon:Icon(Icons.notification_add_rounded),onPressed: () {
+                    control.loadTotalFind();
+                  },),
               ],),
 
               Container(alignment: Alignment.center,margin: EdgeInsets.symmetric(vertical: 1.h),
@@ -53,9 +55,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
               Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  transactionTypeTab(title: "Income",colour:Color(0xff00A86B),
-                      amount:control.totalIncome.value ,
-                      image: "assets/images/first/Income.png" ),
+                  Obx(
+                    () =>  transactionTypeTab(title: "Income",colour:Color(0xff00A86B),
+                        amount:control.totalIncome.value ,
+                        image: "assets/images/first/Income.png" ),
+                  ),
                   transactionTypeTab(title: "Expense",colour:Color(0xffFD3C4A),
                       amount:control.totalExpense.value ,
                       image: "assets/images/first/Expense.png" ),
@@ -67,7 +71,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Text("Spend Frequency",style: TextStyle(fontWeight: FontWeight.w400,fontSize: 15.sp,),),
               ),
 
-              Container(height: 23.h,width: 100.w,color: Colors.amber.shade50,child: Text("Chart"),alignment: Alignment.center,),
+              Container(height: 23.h,width: 100.w,alignment: Alignment.center,
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(3.w),
+                  image: DecorationImage(image: AssetImage("assets/images/Graph.png"),fit: BoxFit.fill),),),
 
               Padding(
                 padding:  EdgeInsets.symmetric(vertical: 1.h),
@@ -76,11 +82,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
               Obx(
                 () =>  control.itemList.isEmpty?Container():ListView.builder(
-                    itemCount: 1,
+                    itemCount: 4,
                     reverse: true,
                     shrinkWrap:true,
                     physics: NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
+
                       control.selCategoryTab(control.itemList[index]['category']);
                       return ItemListTile(
                           amount: control.itemList[index]['amount'],
@@ -120,7 +127,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                 Text("$title",style: TextStyle(fontSize: 13.sp,color: Colors.white,fontWeight: FontWeight.w300)),
-                Text(amount == "" ? "\$ 5000" : "$amount",style: TextStyle(fontSize: 16.sp,color: Colors.white),)
+                Text(amount == "" ? "\$ 0" : "$amount",style: TextStyle(fontSize: 6.sp,color: Colors.white),)
               ],)
           ],),
 
