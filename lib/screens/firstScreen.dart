@@ -87,13 +87,62 @@ class _FirstScreenState extends State<FirstScreen> {
               padding:  EdgeInsets.symmetric(horizontal: 3.w),
               child: Row(mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    BottomItem(title: "Home",iconData:Icons.home_rounded ,index: 0, ),
+
+                    InkWell(
+                      onTap: () {
+
+                        control.indexBottomBar.value = 0;
+                      },
+                      child: SizedBox(width: 75,
+                        child: Column(mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Obx(() =>  Icon(Icons.home_rounded, size: 30,color: control.indexBottomBar.value == 0 ? Color(0xff7F3DFF) : Color(0xffC6C6C6)  )),
+                            Text("Home",style: TextStyle(color:Color(0xff7F3DFF),fontSize: 13.5 ),),
+                          ],),
+                      ),
+                    ),
                   SizedBox(width: 1.w,),
-                    BottomItem(title: "Transaction",iconData:Icons.receipt_long_rounded ,index: 1),
+                    InkWell(
+                      onTap: () {
+                        control.indexBottomBar.value = 1;
+                      },
+                      child: SizedBox(width: 75,
+                        child: Column(mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Obx(() =>  Icon(Icons.receipt_long_rounded, size: 30,color: control.indexBottomBar.value == 1 ? Color(0xff7F3DFF) : Color(0xffC6C6C6)  )),
+                            Text("Transaction",style: TextStyle(color:Color(0xff7F3DFF),fontSize: 13.5 ),),
+                          ],),
+                      ),
+                    ),
                   Spacer(),
-                    BottomItem(title: "Budget",iconData:Icons.pie_chart ,index: 2),
-                  SizedBox(width: 1.w,),
-                    BottomItem(title: "Profile",iconData:Icons.person ,index: 3),
+
+
+                    InkWell(
+                      onTap: () {
+                        control.indexBottomBar.value = 2;
+                      },
+                      child: SizedBox(width: 75,
+                        child: Column(mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Obx(() =>  Icon(Icons.pie_chart, size: 30,color: control.indexBottomBar.value == 2 ? Color(0xff7F3DFF) : Color(0xffC6C6C6)  )),
+                            Text("Budget",style: TextStyle(color:Color(0xff7F3DFF),fontSize: 13.5 ),),
+                          ],),
+                      ),
+                    ),
+                    SizedBox(width: 1.w,),
+
+                    InkWell(
+                      onTap: () {
+                        control.indexBottomBar.value = 3;
+                      },
+                      child: SizedBox(width: 75,
+                        child: Column(mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Obx(() =>  Icon(Icons.person, size: 30,color: control.indexBottomBar.value == 3 ? Color(0xff7F3DFF) : Color(0xffC6C6C6)  )),
+                            Text("Profile",style: TextStyle(color:Color(0xff7F3DFF),fontSize: 13.5 ),),
+                          ],),
+                      ),
+                    ),
     ],),
               ),
             ),
@@ -102,6 +151,22 @@ class _FirstScreenState extends State<FirstScreen> {
 
 
     );
+  }
+
+  InkWell BottomItem({index,iconData,title}) {
+    return InkWell(
+                        onTap: () {
+                          control.indexBottomBar.value = index;
+                    },
+                      child: SizedBox(width: 75,
+                        child: Column(mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Obx(() =>  Icon(iconData, size: 30,color: control.indexBottomBar.value == 0 ? Color(0xff7F3DFF) : Color(0xffC6C6C6)  )),
+
+                            Text("$title",style: TextStyle(color:Color(0xff7F3DFF),fontSize: 13.5 ),),
+                          ],),
+                ),
+              );
   }
 
   Widget MoneyItem({title,imgPath})
@@ -119,30 +184,30 @@ class _FirstScreenState extends State<FirstScreen> {
     );
   }
 
-  Widget BottomItem({title,iconData,index})
-  {
-    return InkWell(
-      onTap: () {
-        control.indexBottomBar.value = index;
-        if( index != control.indexBottomBar.value)
-          {
-            control.bottomColour.value = Color(0xffC6C6C6);
-          }
-        else
-          {
-            control.bottomColour.value = Color(0xff7F3DFF);
-          }
-        print(control.bottomColour.value );
-      },
-      child: SizedBox(width: 75,
-        child: Column(mainAxisSize: MainAxisSize.min,
-          children: [
-            Obx(() =>  Icon(iconData, size: 30,color: control.bottomColour.value )),
-            Text("$title",style: TextStyle(color:Color(0xff7F3DFF),fontSize: 13.5 ),),
-          ],),
-      ),
-    );
-  }
+  // Widget BottomItem({title,iconData,index})
+  // {
+  //   return InkWell(
+  //     onTap: () {
+  //       // control.indexBottomBar.value = index;
+  //       if( control.indexBottomBar.value == index)
+  //         {
+  //           control.bottomColour.value = Color(0xff7F3DFF);
+  //         }
+  //       else
+  //         {
+  //           control.bottomColour.value = Color(0xffC6C6C6);
+  //         }
+  //       print(control.bottomColour.value);
+  //     },
+  //     child: SizedBox(width: 75,
+  //       child: Column(mainAxisSize: MainAxisSize.min,
+  //         children: [
+  //           Obx(() =>  Icon(iconData, size: 30,color: control.bottomColour.value )),
+  //           Text("$title",style: TextStyle(color:Color(0xff7F3DFF),fontSize: 13.5 ),),
+  //         ],),
+  //     ),
+  //   );
+  // }
 
 }
 

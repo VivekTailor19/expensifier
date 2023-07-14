@@ -57,11 +57,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Obx(
                     () =>  transactionTypeTab(title: "Income",colour:Color(0xff00A86B),
-                        amount:control.totalIncome.value ,
+                        amount:control.additionIncome.value ,
                         image: "assets/images/first/Income.png" ),
                   ),
                   transactionTypeTab(title: "Expense",colour:Color(0xffFD3C4A),
-                      amount:control.totalExpense.value ,
+                      amount:control.additionExpense.value ,
                       image: "assets/images/first/Expense.png" ),
                 ],
               ),
@@ -121,13 +121,13 @@ class _HomeScreenState extends State<HomeScreen> {
               image: DecorationImage(image: AssetImage("$image"),fit: BoxFit.fill),
               color: colour),),
 
-              SizedBox(width:3.w),
+              SizedBox(width:2.w),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                 Text("$title",style: TextStyle(fontSize: 13.sp,color: Colors.white,fontWeight: FontWeight.w300)),
-                Text(amount == "" ? "\$ 0" : "$amount",style: TextStyle(fontSize: 6.sp,color: Colors.white),)
+                Text(amount == "" ? "\$ 0" : "\$ $amount",style: TextStyle(fontSize: 16.sp,color: Colors.white),)
               ],)
           ],),
 

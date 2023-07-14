@@ -110,7 +110,7 @@ class Expensifier_DB_Helper
     return list;
   }
 
-  Future<Map<String, Object?>> readMatheMatics(String status)
+  Future<Object?> readMatheMatics(String status)
   async {
     database = await checkDB();
     String query = "";
@@ -118,17 +118,15 @@ class Expensifier_DB_Helper
     if(status == 'Income')
       {
         query = 'SELECT SUM(amount) FROM $dbTableName WHERE status = "Income"';
-
       }
     else if(status == 'Expense')
       {
         query = 'SELECT SUM(amount) FROM $dbTableName WHERE status = "Expense"';
-
       }
      List<Map<String, Object?>> list = await database!.rawQuery(query);
-    var temp = list[0];
-    print ("temp = $temp");
-     return temp;
+    int readTotal = list[0]['SUM(amount)'] as int;
+    print(readTotal);
+    return readTotal;
   }
 
 }

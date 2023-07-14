@@ -24,6 +24,7 @@ class ExpensifierController extends GetxController {
   ];
 
   RxInt indexBottomBar = 0.obs;
+
   List<Widget> screenList = [
     HomeScreen(),
     TransactionScreen(),
@@ -31,22 +32,17 @@ class ExpensifierController extends GetxController {
     ProfileScreen()
   ];
 
+
   Rx<Color> bottomColour = Color(0xffC6C6C6).obs;
 
   RxInt additionIncome = 0.obs;
-  var additionExpense = 0;
+  RxInt additionExpense = 0.obs;
 
-  RxString totalIncome = "".obs;
-  RxString totalExpense = "".obs;
 
   Future<void> loadTotalFind()
   async {
     additionIncome.value = (await Expensifier_DB_Helper.expense_db.readMatheMatics('Income')) as int ;
-    additionExpense = (await Expensifier_DB_Helper.expense_db.readMatheMatics('Expense')) as int;
-    print("${additionIncome}");
-
-    // totalIncome.value =   additionIncome.join("");
-    // totalExpense.value =  additionExpense.join("");
+    additionExpense.value = (await Expensifier_DB_Helper.expense_db.readMatheMatics('Expense')) as int;
   }
 
 
