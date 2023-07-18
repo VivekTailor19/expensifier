@@ -2,10 +2,9 @@
 <p>
   https://github.com/VivekTailor19/expensifier/assets/119835214/3cb15aff-a490-4b65-9144-1e9a8a4981b1
 </p>
-
+<br>
 <p>
   <img src = "https://github.com/VivekTailor19/expensifier/assets/119835214/bc72d67f-f536-4f6f-97b7-fed0c24f5a5e" height = "50%" width = "30%">
-
 <img src = "https://github.com/VivekTailor19/expensifier/assets/119835214/96492de2-b38e-4f58-a440-ceba6d493ccd" height = "50%" width = "30%">
 <img src = "https://github.com/VivekTailor19/expensifier/assets/119835214/2671db70-dc22-428d-95b7-5b066814d427" height = "50%" width = "30%">
 <img src = "https://github.com/VivekTailor19/expensifier/assets/119835214/9a122c59-5f65-42f1-b6df-083ac2227274" height = "50%" width = "30%">
