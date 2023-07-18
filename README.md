@@ -1,8 +1,8 @@
 # expensifier
-<p>
+
   https://github.com/VivekTailor19/expensifier/assets/119835214/3cb15aff-a490-4b65-9144-1e9a8a4981b1
-</p>
-<br>
+
+
 <p>
   <img src = "https://github.com/VivekTailor19/expensifier/assets/119835214/bc72d67f-f536-4f6f-97b7-fed0c24f5a5e" height = "50%" width = "30%">
 <img src = "https://github.com/VivekTailor19/expensifier/assets/119835214/96492de2-b38e-4f58-a440-ceba6d493ccd" height = "50%" width = "30%">
