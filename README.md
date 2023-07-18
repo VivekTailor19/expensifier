@@ -5,9 +5,10 @@
 
 <p>
   <img src = "https://github.com/VivekTailor19/expensifier/assets/119835214/bc72d67f-f536-4f6f-97b7-fed0c24f5a5e" height = "50%" width = "30%">
-<img src = "https://github.com/VivekTailor19/expensifier/assets/119835214/9a122c59-5f65-42f1-b6df-083ac2227274" height = "50%" width = "30%">
+
 <img src = "https://github.com/VivekTailor19/expensifier/assets/119835214/96492de2-b38e-4f58-a440-ceba6d493ccd" height = "50%" width = "30%">
 <img src = "https://github.com/VivekTailor19/expensifier/assets/119835214/2671db70-dc22-428d-95b7-5b066814d427" height = "50%" width = "30%">
+<img src = "https://github.com/VivekTailor19/expensifier/assets/119835214/9a122c59-5f65-42f1-b6df-083ac2227274" height = "50%" width = "30%">
 <img src = "https://github.com/VivekTailor19/expensifier/assets/119835214/a571c16b-2351-4b1a-8e07-39a02e162d15" height = "50%" width = "30%">
 <img src = "https://github.com/VivekTailor19/expensifier/assets/119835214/e6339137-ad48-4bfb-8551-ee5c9f7b5198" height = "50%" width = "30%">
 <img src = "https://github.com/VivekTailor19/expensifier/assets/119835214/bdecbdb2-79bc-441e-9f96-ca688c1ec0bb" height = "50%" width = "30%">
